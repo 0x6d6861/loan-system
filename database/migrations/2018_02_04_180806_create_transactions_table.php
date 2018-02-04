@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('TRANSACTION_NO')->unsigned();
+            $table->string('TRANSACTION_NO');
             $table->string('type')->comment("is LEND or LOAN or PAYMENT depending on what the user clicked");
             $table->decimal('amount');
             $table->integer('account_id');
