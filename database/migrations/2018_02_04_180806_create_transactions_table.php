@@ -19,6 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->string('type')->comment("is LEND or LOAN or PAYMENT depending on what the user clicked");
             $table->decimal('amount');
             $table->integer('account_id');
+//            $table->integer('user_id');
 
             $table->timestamps();
 

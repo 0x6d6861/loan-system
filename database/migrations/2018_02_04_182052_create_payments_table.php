@@ -17,6 +17,8 @@ class CreatePaymentsTable extends Migration
             $table->increments('id');
             $table->decimal('amount');
             $table->integer('transaction_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+
 //            $table->integer('account_id')->unsigned();
             $table->timestamps();
         });
