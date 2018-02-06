@@ -28,6 +28,14 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('assets/img/favicon.png') }}">
 
+    <style>
+        .modal-content{
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+        }
+    </style>
+    
 </head>
 <body>
     <div id="wrapper">
@@ -43,12 +51,16 @@
                 <form class="navbar-form navbar-left">
                     <div class="input-group">
                         <input type="text" value="" class="form-control" placeholder="Search dashboard...">
-                        <span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+                        <span class="input-group-btn"><button type="button" class="btn btn-default">Go</button></span>
                     </div>
                 </form>
-                <div class="navbar-btn navbar-btn-right">
-                    <a class="btn btn-success update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
-                </div>
+                <ul class="nav navbar-nav" style="margin-left: 30px;">
+                    <li class=""><a href="#"><i class="lnr lnr-thumbs-up"></i> <span>Get a Loan</span></a></li>
+                    <li><a href="#"><i class="lnr lnr-drop"></i> <span>Lend</span></a></li>
+                </ul>
+                {{--<div class="navbar-btn navbar-btn-right">--}}
+                    {{--<a class="btn btn-success update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>--}}
+                {{--</div>--}}
                 <div id="navbar-menu">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -89,7 +101,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                                    <li><a href="{{ route('profile') }}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
                                     <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
                                     <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
                                     <li>
@@ -122,24 +134,13 @@
             <div class="sidebar-scroll">
                 <nav>
                     <ul class="nav">
-                        <li><a href="index.html" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
-                        <li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>Elements</span></a></li>
-                        <li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>
-                        <li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Panels</span></a></li>
+                        <li><a href="{{ route('home') }}" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+                        <li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>Loans</span></a></li>
+                        <li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Lends</span></a></li>
+                        <li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Messages</span></a></li>
                         <li><a href="notifications.html" class="active"><i class="lnr lnr-alarm"></i> <span>Notifications</span></a></li>
-                        <li>
-                            <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                            <div id="subPages" class="collapse ">
-                                <ul class="nav">
-                                    <li><a href="page-profile.html" class="">Profile</a></li>
-                                    <li><a href="page-login.html" class="">Login</a></li>
-                                    <li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li><a href="tables.html" class=""><i class="lnr lnr-dice"></i> <span>Tables</span></a></li>
-                        <li><a href="typography.html" class=""><i class="lnr lnr-text-format"></i> <span>Typography</span></a></li>
-                        <li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Icons</span></a></li>
+                        <li><a href="tables.html" class=""><i class="lnr lnr-dice"></i> <span>Settings</span></a></li>
+                        <li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Logout</span></a></li>
                     </ul>
                 </nav>
             </div>
@@ -169,5 +170,6 @@
     <script src="{{ asset('assets/vendor/chartist/js/chartist.min.js') }}"></script>
     <script src="{{ asset('assets/scripts/klorofil-common.js') }}"></script>
 {{--    <script src="{{ asset('js/app.js') }}"></script>--}}
+    @yield('script')
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Lend;
 use Illuminate\Http\Request;
 
 class LendController extends Controller
@@ -13,7 +14,10 @@ class LendController extends Controller
      */
     public function index()
     {
-        //
+
+        // TODO:: use lends of the currently logged in user
+        $lends = Lend::all();
+        return $lends;
     }
 
     /**
@@ -35,6 +39,15 @@ class LendController extends Controller
     public function store(Request $request)
     {
         //
+        // TODO: use logedin user and get his lends then inserst
+        // TODO: use DB transactions
+        $lend = new Lend();
+        $lend->amount = $request->input('amount');
+        $lend->percentage = $request->input('percentage');
+        $lend->account_id = Auth::user()->accounts()->first()->account->id; // TODO: use this to inseert the load
+        // TODO: set the status to empty
+
+        $lend->save();
     }
 
     /**
@@ -46,6 +59,8 @@ class LendController extends Controller
     public function show($id)
     {
         //
+        $lend = Lend::findOrFail($id);
+        return $lend;
     }
 
     /**
@@ -69,6 +84,10 @@ class LendController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $lend = Lend::findOrFail($id);
+        $lend->percentage = $request->input('percentage');
+        $lend->amount = $request->input('amount');
+        $lend->save();
     }
 
     /**
@@ -80,5 +99,7 @@ class LendController extends Controller
     public function destroy($id)
     {
         //
+        Lend::findOrFail($id)->destroy();
+
     }
 }

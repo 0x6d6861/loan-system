@@ -19,7 +19,8 @@ class CreateLoansTable extends Migration
             $table->decimal('amount');
             $table->decimal('percentage');
             $table->integer('account_id');
-
+            $table->string('reason');
+            $table->text('message');
             $table->integer('status_id')->unsigned();
 
             $table->timestamps();

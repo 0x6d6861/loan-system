@@ -81,4 +81,9 @@ class UserController extends Controller
     {
         //
     }
+
+    public function profile()
+    {
+        return view('modules.Profile.index');
+    }
 }
