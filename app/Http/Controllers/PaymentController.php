@@ -17,8 +17,8 @@ class PaymentController extends Controller
     public function index()
     {
         //
-        $payment = Payment::all();
-        return $payment;
+        $payments = Auth::user()->payments;
+        return view('modules.Payment.index', ['payments' => $payments]);
     }
 
     /**

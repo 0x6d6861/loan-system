@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Transaction;
 
 class Lend extends Model
 {
@@ -12,6 +11,14 @@ class Lend extends Model
 
     public function transaction()
     {
-        return $this->belongsTo('Transaction');
+        return $this->belongsTo('App\Transaction');
+    }
+    
+    public function account(){
+        return $this->belongsTo('App\Account');
+    }
+    
+    public function status(){
+        return $this->belongsTo('App\Status');
     }
 }

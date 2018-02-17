@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Account;
-use App\Payment;
-use App\Transaction;
+
 
 class User extends Authenticatable
 {
     use Notifiable;
+    
 
     /**
      * The attributes that are mass assignable.
@@ -30,18 +29,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function accounts()
+    public function account()
     {
-        return $this->hasMany('Account');
+        return $this->hasOne('App\Account');
     }
 
     public function payments()
     {
-        return $this->hasMany('Payment');
+        return $this->hasMany('App\Payment');
     }
 
     public function transactions()
     {
-        return $this->hasManyThrough('Transaction', 'Account');
+        return $this->hasManyThrough('App\Transaction', 'App\Account');
     }
 }

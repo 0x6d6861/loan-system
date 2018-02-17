@@ -3,12 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
-use App\Transaction;
-use App\Loan;
-use App\Lend;
-use App\Payment;
-use App\Currency;
+
 
 class Account extends Model
 {
@@ -22,30 +17,30 @@ class Account extends Model
 
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('App\User');
     }
 
     public function transactions()
     {
-        return $this->hasMany('Transaction');
+        return $this->hasMany('App\Transaction');
     }
 
     public function payments()
     {
-        return $this->hasMany('Payment');
+        return $this->hasMany('App\Payment');
     }
 
     public function loans()
     {
-        return $this->hasManyThrough('Loan', 'Transaction');
+        return $this->hasMany('App\Loan');
     }
 
     public function lends()
     {
-        return $this->hasManyThrough('Lend', 'Transaction');
+        return $this->hasMany('App\Lend');
     }
 
     public function currency(){
-        return $this->hasOne('Currency');
+        return $this->belongsTo('App\Currency');
     }
 }

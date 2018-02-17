@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Loan;
+use App\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,8 @@ class LoanController extends Controller
     public function index()
     {
         // TODO:: use loans of the currently logged in user
-        $loans = Loan::all();
-        return $loans;
+        $loans = Auth::user()->account->loans;
+        return view('modules.Loan.index', ['loans' => $loans]);
     }
 
     /**
@@ -40,13 +41,28 @@ class LoanController extends Controller
     {
         // TODO: use logedin user and get his loans then inserst
         // TODO: use DB transactions
+        // TODO: Form validations and if the date for paying is not in the past
         $loan = new Loan();
         $loan->amount = $request->input('amount');
+        $loan->message = $request->input('message');
+        $loan->reason = $request->input('reason');
         $loan->percentage = $request->input('percentage');
-        $loan->account_id = Auth::user()->accounts()->first()->account->id; // TODO: use this to inseert the load
-        // TODO: set the status to empty
-
-        $loan->save();
+        $load->status_id = Status::where('default', 1)->first()->id;
+        
+        
+        // $loan->account_id = Auth::user()->account->id;
+        // $loan->save();
+        
+        Auth::user()->account->loans()->attach($loan); // to Investigate
+        
+        $transaction = new Transaction();
+        $transaction->type = "LOAN";
+        $transaction->amount = $loan->amount;
+        $transaction->account_id = Auth::user()->account->id;
+        
+        $transaction->save();
+        
+        return redirect()->back();
     }
 
     /**

@@ -19,3 +19,21 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'UserController@profile')->name('profile');
+Route::get('/settings', 'UserController@settings')->name('settings');
+
+
+Route::post('settings', 'UserController@updateProfile')->name('update.profile');
+Route::post('/changepassword', 'UserController@changePassword')->name('changePassword');
+
+
+Route::get('/lends', 'LendController@index')->name('lends');
+Route::get('/loans', 'LoanController@index')->name('loans');
+Route::get('/payments', 'PaymentController@index')->name('payments');
+
+
+Route::get('/messages', function(){
+    $status = App\Status::all();
+    return view('modules.Message.index', ['statuses' => $status]);
+})->name('messages');
+
+

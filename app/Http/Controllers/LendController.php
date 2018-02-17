@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Lend;
 use Illuminate\Http\Request;
+use Auth;
 
 class LendController extends Controller
 {
@@ -16,8 +17,8 @@ class LendController extends Controller
     {
 
         // TODO:: use lends of the currently logged in user
-        $lends = Lend::all();
-        return $lends;
+        $lends = Auth::user()->account->lends;
+        return view('modules.Lend.index', ['lends' => $lends]);
     }
 
     /**
@@ -44,10 +45,19 @@ class LendController extends Controller
         $lend = new Lend();
         $lend->amount = $request->input('amount');
         $lend->percentage = $request->input('percentage');
-        $lend->account_id = Auth::user()->accounts()->first()->account->id; // TODO: use this to inseert the load
-        // TODO: set the status to empty
-
-        $lend->save();
+        $lend->status_id = Status::where('default', 1)->first()->id;
+        
+        Auth::user()->account->lends()->attach($lend); // to Investigate
+        
+        $transaction = new Transaction();
+        $transaction->type = "LEND";
+        $transaction->amount = $loan->amount;
+        $transaction->account_id = Auth::user()->account->id;
+        
+        $transaction->save();
+        
+        return redirect()->back();
+        
     }
 
     /**

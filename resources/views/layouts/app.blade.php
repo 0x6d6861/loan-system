@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" class="fullscreen-bg">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,7 +35,7 @@
             border-radius: 2px;
         }
     </style>
-    
+    @yield('style')
 </head>
 <body>
     <div id="wrapper">
@@ -48,12 +48,12 @@
                 <div class="navbar-btn">
                     <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
                 </div>
-                <form class="navbar-form navbar-left">
+                <!--<form class="navbar-form navbar-left">
                     <div class="input-group">
                         <input type="text" value="" class="form-control" placeholder="Search dashboard...">
                         <span class="input-group-btn"><button type="button" class="btn btn-default">Go</button></span>
                     </div>
-                </form>
+                </form>-->
                 <ul class="nav navbar-nav" style="margin-left: 30px;">
                     <li class=""><a href="#"><i class="lnr lnr-thumbs-up"></i> <span>Get a Loan</span></a></li>
                     <li><a href="#"><i class="lnr lnr-drop"></i> <span>Lend</span></a></li>
@@ -96,14 +96,14 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    <img src="assets/img/user.png" class="img-circle" alt="Avatar">
+                                    <img src="/uploads/avatars/{{ Auth::user()->avatar }}" class="img-circle" alt="Avatar">
                                     <span>{{ Auth::user()->name }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
                                 </a>
 
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ route('profile') }}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-                                    <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
-                                    <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+                                    <li><a href="{{ route('messages') }}"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
+                                    <li><a href="{{ route('settings') }}"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
@@ -134,13 +134,12 @@
             <div class="sidebar-scroll">
                 <nav>
                     <ul class="nav">
-                        <li><a href="{{ route('home') }}" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
-                        <li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>Loans</span></a></li>
-                        <li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Lends</span></a></li>
-                        <li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Messages</span></a></li>
-                        <li><a href="notifications.html" class="active"><i class="lnr lnr-alarm"></i> <span>Notifications</span></a></li>
-                        <li><a href="tables.html" class=""><i class="lnr lnr-dice"></i> <span>Settings</span></a></li>
-                        <li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Logout</span></a></li>
+                        <li><a href="{{ route('home') }}" class="{{ Request::is('home') ? 'active' : '' }}"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+                        <li><a href="{{ route('loans') }}" class="{{ Request::is('loans') ? 'active' : '' }}"><i class="lnr lnr-code"></i> <span>Loans</span></a></li>
+                        <li><a href="{{ route('lends') }}" class="{{ Request::is('lends') ? 'active' : '' }}"><i class="lnr lnr-chart-bars"></i> <span>Lends</span></a></li>
+                        <li><a href="{{ route('messages') }}" class="{{ Request::is('messages') ? 'active' : '' }}"><i class="lnr lnr-cog"></i> <span>Messages</span></a></li>
+                        <li><a href="{{ route('payments') }}" class="{{ Request::is('payments') ? 'active' : '' }}"><i class="lnr lnr-alarm"></i> <span>Payments</span></a></li>
+                        <li><a href="{{ route('settings') }}" class="{{ Request::is('settings') ? 'active' : '' }}"><i class="lnr lnr-dice"></i> <span>Settings</span></a></li>
                     </ul>
                 </nav>
             </div>

@@ -19,7 +19,7 @@ class CreateLendsTable extends Migration
             $table->decimal('amount');
             $table->decimal('percentage');
             $table->integer('account_id');
-
+            $table->date('to_be_paid_on');
             $table->integer('status_id')->unsigned();
 
 
