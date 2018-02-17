@@ -1,3 +1,5 @@
+sudo mount /tmp -o remount,exec
+
 $ docker-compose down
 $ docker-compose build
 $ docker-compose up
