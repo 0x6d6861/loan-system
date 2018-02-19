@@ -4,25 +4,48 @@
     <div class="row">
         <div class="col-sm-3">
             <h4>Users Details</h4>
+            
         </div>
         <div class="col-sm-6 panel">
             <div class="panel-body">
-            <img class="pull-left" src="/uploads/avatars/{{ $user->avatar }}" style="width:150px; height:150px; border-radius:50%; margin-right:25px;">
-                <form class="pull-left" enctype="multipart/form-data" action="{{ route('update.profile') }}" method="POST">
+            <img id="avatar_image" class="" src="{{ $user->avatar }}/resize/150/150/1" style="width:150px; height:150px; margin-right:25px;">
+
+            <!--<img id="avatar_image" class="" src="/uploads/avatars/{{ $user->avatar }}" style="width:150px; height:150px; margin-right:25px;">-->
+                <form enctype="multipart/form-data" name="update_profile" id="update_profile" action="{{ route('update.profile') }}" method="POST">
+                        <input type="hidden" form="update_profile" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" class="form-control" id="avatar" name="avatar">
+                </form> 
+                <div class="">
                     <div class="form-group">
                         <label for="name">Full Name</label>
-                        <input type="text" class="form-control" value="{{ $user->name }}" id="name" name="name" placeholder="Full Name">
+                        <input form="update_profile" type="text" class="form-control" value="{{ $user->name }}" id="name" name="name" placeholder="Full Name">
                       </div>
                     <div class="form-group">
-                        <label for="name">Profile Picture</label>
-                        <input type="file" class="form-control" id="avatar" name="avatar">
+                        
+                        <form action="https://image-server1.herokuapp.com/api/upload" enctype="multipart/form-data" class="form-horizontal" method="post">
+            				
+            				 <div class="progress" style="">
+            				  <div class="progress-bar" role="progressbar" aria-valuenow="0"
+            				  aria-valuemin="0" aria-valuemax="100" style="width:0%">
+            				    0%
+            				  </div>
+            				</div>
+            				<div class="input-group">
+            				    <input type="file" name="pic" class="form-control" />
+                                  <span class="input-group-btn">
+            				            <button class="btn btn-default upload-image">Upload Image</button>
+                                  </span>
+                                </div>
+            							
+            			</form>
+                        
                       </div>
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary">
+                        <div class="form-group">
+                            <input form="update_profile" type="submit" class="btn btn-primary">
+                        </div>
                     </div>
                     
-                </form>
+                
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -95,6 +118,42 @@
 
 @section('script')
     <script type="text/javascript">
+        $(document).ready(function() { 
 
+
+         var progressbar   = $('.progress-bar');
+
+
+            $(".upload-image").click(function(e){
+
+			e.preventDefault();
+
+            	$(".form-horizontal").ajaxForm(
+		{
+		  target: '.preview',
+		  beforeSend: function() {
+			$(".progress").css("display","block");
+			progressbar.width('0%');
+			progressbar.text('0%');
+                    },
+		    uploadProgress: function (event, position, total, percentComplete) {
+		        progressbar.width(percentComplete + '%');
+		        progressbar.text(percentComplete + '%');
+		     },
+			complete: function(xhr) {
+		      if(xhr.responseText)
+		      {
+		          document.getElementById('avatar').value = JSON.parse(xhr.responseText).link;
+		          document.getElementById('avatar_image').src = JSON.parse(xhr.responseText).link + "/resize/150/150/1";
+
+// 			document.getElementById("results").innerHTML=JSON.parse(xhr.responseText).link;
+		      }
+		    }
+				})
+		.submit();
+            });
+
+
+        }); 
     </script>
 @endsection

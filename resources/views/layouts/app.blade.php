@@ -96,7 +96,7 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    <img src="/uploads/avatars/{{ Auth::user()->avatar }}" class="img-circle" alt="Avatar">
+                                    <img src="{{ Auth::user()->avatar }}/resize/100/100/1" class="img-circle" alt="Avatar">
                                     <span>{{ Auth::user()->name }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
                                 </a>
 
@@ -169,6 +169,8 @@
     <script src="{{ asset('assets/vendor/chartist/js/chartist.min.js') }}"></script>
     <script src="{{ asset('assets/scripts/klorofil-common.js') }}"></script>
 {{--    <script src="{{ asset('js/app.js') }}"></script>--}}
+<script src="{{ asset('js/jquery.form.js') }}"></script>
+
     @yield('script')
 </body>
 </html>

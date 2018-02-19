@@ -101,11 +101,14 @@ class UserController extends Controller
     public function updateProfile(Request $request){
         $user = Auth::user();
         $user->name = $request->input('name');
-        if($request->hasFile('avatar')){
+        /*if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
             Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
             $user->avatar = $filename;
+        }*/
+        if($request->input('avatar')){
+            $user->avatar = $request->input('avatar');
         }
         $user->save();
         return redirect()->back();
